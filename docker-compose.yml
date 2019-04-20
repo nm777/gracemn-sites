@@ -1,0 +1,129 @@
+version: '3.5'
+
+### Service Setup #############################################
+services:
+
+  ### Traefik Proxy ########################################
+  proxy:
+    image: traefik:1.7.10-alpine
+    restart: always
+    command:
+      - --api=true
+      - --api.entrypoint=api
+      - --defaultentrypoints=http
+      - --defaultentrypoints=https
+      - --docker=true
+      - --docker.domain=gracemn.com
+        #- --docker.swarmmode=true
+      - --docker.watch=true
+      - "--entrypoints=Name:api Address::8080"
+      - "--entrypoints=Name:http Address::8000 Redirect.EntryPoint:https"
+        #- "--entrypoints=Name:http Address::80 Redirect.EntryPoint:https"
+      - "--entrypoints=Name:https Address::4430 Compress:true ForwardedHeaders.TrustedIPs:198.18.0.0/15 TLS TLS.MinVersion:VersionTLS12 TLS.Certificates.CertFile:/etc/ssl/certs/gracemn.crt TLS.Certificates.KeyFile:/etc/ssl/private/gracemn.key TLS.Certificates.CertFile:/etc/ssl/certs/gracemn-members.crt TLS.Certificates.KeyFile:/etc/ssl/private/gracemn-members.key TLS.CipherSuites:TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA"
+        #- "--entrypoints=Name:https Address::443 Compress:true ForwardedHeaders.TrustedIPs:198.18.0.0/15 TLS TLS.MinVersion:VersionTLS12 TLS.Certificates.CertFile:/etc/ssl/certs/gracemn.crt TLS.Certificates.KeyFile:/etc/ssl/private/gracemn.key TLS.Certificates.CertFile:/etc/ssl/certs/gracemn-members.crt TLS.Certificates.KeyFile:/etc/ssl/private/gracemn-members.key TLS.CipherSuites:TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA"
+      - --insecureskipverify=true
+      - --loglevel=WARN
+      - --retry=true
+      - --retry.attempts=3
+    ports:
+      - 8000:80
+      - 4430:443
+      - 8080:8080
+    volumes:
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+    labels:
+      traefik.enable: "false"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.10'
+          memory: 250M
+    networks:
+      - web
+
+  ### gracemn.com ########################################
+  main-site:
+    image: wordpress:5.1.1-php7.3-fpm-alpine
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: ${MAIN_SITE_DB_USER}
+      WORDPRESS_DB_PASSWORD: ${MAIN_SITE_DB_PASS}
+      WORDPRESS_DB_NAME: ${MAIN_SITE_DB_NAME}
+    volumes:
+      - /srv/wordpress/gracemn.com/plugins:/var/www/html/wp-content/plugins
+      - /srv/wordpress/gracemn.com/themes:/var/www/html/wp-content/themes
+      - /srv/wordpress/gracemn.com/plugins:/var/www/html/wp-content/uploads
+      - /srv/wordpress/gracemn.com/googlec6efad7d42b69962.html:/var/www/html/wp-content/googlec6efad7d42b69962.html
+      - /srv/wordpress/gracemn.com/googlef77e8b9c9f63fbcb.html:/var/www/html/wp-content/googlef77e8b9c9f63fbcb.html
+    labels:
+      traefik.enable: "true"
+      traefik.port: 80
+      traefik.frontend.rule: "Host: gracemn.com, www.gracemn.com"
+      traefik.docker.network: "gracemn-sites_web"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 250M
+    depends_on:
+      - proxy
+    networks:
+      - web
+      - db
+
+  ### members.gracemn.com ########################################
+  members-site:
+    image: wordpress:5.1.1-php7.3-fpm-alpine
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: ${MEMBERS_SITE_DB_USER}
+      WORDPRESS_DB_PASSWORD: ${MEMBERS_SITE_DB_PASS}
+      WORDPRESS_DB_NAME: ${MEMBERS_SITE_DB_NAME}
+    volumes:
+      - /srv/wordpress/members.gracemn.com/plugins:/var/www/html/wp-content/plugins
+      - /srv/wordpress/members.gracemn.com/themes:/var/www/html/wp-content/themes
+      - /srv/wordpress/members.gracemn.com/plugins:/var/www/html/wp-content/uploads
+    labels:
+      traefik.enable: "true"
+      traefik.port: 80
+      traefik.frontend.rule: "Host: members.gracemn.com"
+      traefik.docker.network: "gracemn-sites_web"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 250M
+    depends_on:
+      - proxy
+    networks:
+      - web
+      - db
+
+  ### Database Service ###########################################
+  db:
+    image: mariadb:10.4.4-bionic
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    volumes:
+      - '/srv/mariadb:/var/lib/mysql'
+      - './mariadb-initdb:/docker-entrypoint-initdb.d'
+    labels:
+      traefik.enable: "false"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: '250M'
+    networks:
+      - db
+
+### Network Setup #############################################
+networks:
+  web:
+  db:
+
