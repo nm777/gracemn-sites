@@ -1,5 +1,16 @@
 #!/bin/bash
 
+################################################################################
+# Set up sudo not to require password for this user
+
+sudo addgroup freesudo
+sudo usermod -aG freesudo $USER
+echo "%unrestricted ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers
+
+
+################################################################################
+# Install Docker
+
 sudo apt-get update && sudo apt-get upgrade -y
 
 sudo apt-get install \
@@ -35,7 +46,18 @@ sudo usermod -aG docker $USER
 
 sudo systemctl enable docker
 
+
+################################################################################
+# Install docker-compose
+
 sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
 sudo chmod +x /usr/local/bin/docker-compose
+
+
+################################################################################
+# Install Vim
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+echo "" | vim +PluginInstall +qall
 
