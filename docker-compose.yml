@@ -17,17 +17,15 @@ services:
         #- --docker.swarmmode=true
       - --docker.watch=true
       - "--entrypoints=Name:api Address::8080"
-      - "--entrypoints=Name:http Address::8000 Redirect.EntryPoint:https"
-        #- "--entrypoints=Name:http Address::80 Redirect.EntryPoint:https"
-      - "--entrypoints=Name:https Address::4430 Compress:true ForwardedHeaders.TrustedIPs:198.18.0.0/15 TLS TLS.MinVersion:VersionTLS12 TLS.Certificates.CertFile:/etc/ssl/certs/gracemn.crt TLS.Certificates.KeyFile:/etc/ssl/private/gracemn.key TLS.Certificates.CertFile:/etc/ssl/certs/gracemn-members.crt TLS.Certificates.KeyFile:/etc/ssl/private/gracemn-members.key TLS.CipherSuites:TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA"
-        #- "--entrypoints=Name:https Address::443 Compress:true ForwardedHeaders.TrustedIPs:198.18.0.0/15 TLS TLS.MinVersion:VersionTLS12 TLS.Certificates.CertFile:/etc/ssl/certs/gracemn.crt TLS.Certificates.KeyFile:/etc/ssl/private/gracemn.key TLS.Certificates.CertFile:/etc/ssl/certs/gracemn-members.crt TLS.Certificates.KeyFile:/etc/ssl/private/gracemn-members.key TLS.CipherSuites:TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA"
+      - "--entrypoints=Name:http Address::80 Redirect.EntryPoint:https"
+      - "--entrypoints=Name:https Address::443 Compress:true ForwardedHeaders.TrustedIPs:198.18.0.0/15 TLS TLS.MinVersion:VersionTLS12 TLS.Certificates.CertFile:/etc/ssl/certs/gracemn.crt TLS.Certificates.KeyFile:/etc/ssl/private/gracemn.key TLS.Certificates.CertFile:/etc/ssl/certs/gracemn-members.crt TLS.Certificates.KeyFile:/etc/ssl/private/gracemn-members.key TLS.CipherSuites:TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA"
       - --insecureskipverify=true
       - --loglevel=WARN
       - --retry=true
       - --retry.attempts=3
     ports:
-      - 8000:80
-      - 4430:443
+      - 80:80
+      - 443:443
       - 8080:8080
     volumes:
       - type: bind
@@ -55,7 +53,7 @@ services:
     volumes:
       - /srv/wordpress/gracemn.com/plugins:/var/www/html/wp-content/plugins
       - /srv/wordpress/gracemn.com/themes:/var/www/html/wp-content/themes
-      - /srv/wordpress/gracemn.com/plugins:/var/www/html/wp-content/uploads
+      - /srv/wordpress/gracemn.com/uploads:/var/www/html/wp-content/uploads
       - /srv/wordpress/gracemn.com/googlec6efad7d42b69962.html:/var/www/html/wp-content/googlec6efad7d42b69962.html
       - /srv/wordpress/gracemn.com/googlef77e8b9c9f63fbcb.html:/var/www/html/wp-content/googlef77e8b9c9f63fbcb.html
     labels:
@@ -86,7 +84,7 @@ services:
     volumes:
       - /srv/wordpress/members.gracemn.com/plugins:/var/www/html/wp-content/plugins
       - /srv/wordpress/members.gracemn.com/themes:/var/www/html/wp-content/themes
-      - /srv/wordpress/members.gracemn.com/plugins:/var/www/html/wp-content/uploads
+      - /srv/wordpress/members.gracemn.com/uploads:/var/www/html/wp-content/uploads
     labels:
       traefik.enable: "true"
       traefik.port: 80
