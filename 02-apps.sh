@@ -6,6 +6,7 @@
 sudo timedatectl set-timezone America/Chicago
 sudo apt-get update && sudo apt-get install -y ntp
 
+
 ################################################################################
 # Set up sudo not to require password for this user
 
@@ -52,6 +53,13 @@ sudo usermod -aG docker $USER
 
 sudo systemctl enable docker
 
+echo '{
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "10m",
+    "max-file": "10"
+  }
+}' | sudo tee /etc/docker/daemon.json
 
 ################################################################################
 # Install docker-compose
