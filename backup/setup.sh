@@ -9,7 +9,7 @@ sudo mkdir /srv/backup/members.gracemn.com 2>/dev/null
 
 # Wordpress data
 sudo echo "00 00 * * *    root    tar -cvpzf /srv/backup/gracemn.com/\`date +\\%a\`.tar.gz -C /srv/wordpress gracemn.com" | sudo tee /etc/cron.d/gracemn
-sudo echo "05 00 * * *    root    tar --exclude='./members.gracemn.com/uploads' -cvpzf /srv/backup/members.gracemn.com/\`date +\\%a\`.tar.gz -C /srv/wordpress members.gracemn.com" | sudo tee /etc/cron.d/members
+sudo echo "05 00 * * *    root    tar --exclude='members.gracemn.com/uploads' -cvpzf /srv/backup/members.gracemn.com/\`date +\\%a\`.tar.gz -C /srv/wordpress members.gracemn.com" | sudo tee /etc/cron.d/members
 
 # Wordpress uploads for members site
 sudo echo "10 00 21 * *    root    tar -cvpzf /srv/backup/members.gracemn.com/uploads-\$((\`date +\\%m\`%2)).tar.gz -C /srv/wordpress members.gracemn.com/uploads" | sudo tee -a /etc/cron.d/members
