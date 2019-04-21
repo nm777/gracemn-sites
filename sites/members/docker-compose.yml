@@ -1,0 +1,57 @@
+version: '3.5'
+
+### Service Setup #############################################
+services:
+
+  ### Wordpress PHP Server ######################################
+  site:
+    image: wordpress:5.1.1
+    command: ["/wait-for-it.sh", "db:3306", "--", "docker-entrypoint.sh", "apache2-foreground"]
+    restart: always
+    labels:
+      traefik.enable: "true"
+      traefik.port: 80
+      traefik.frontend.rule: "Host: ${SITE_FQDN}"
+      traefik.docker.network: "traefik_web"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: ${DB_PASS}
+    volumes:
+      - /srv/wordpress/${SITE_FQDN}/plugins:/var/www/html/wp-content/plugins
+      - /srv/wordpress/${SITE_FQDN}/themes:/var/www/html/wp-content/themes
+      - /srv/wordpress/${SITE_FQDN}/uploads:/var/www/html/wp-content/uploads
+      - /srv/wordpress/wait-for-it.sh:/wait-for-it.sh
+      - /srv/wordpress/${SITE_FQDN}/000-default.conf:/etc/apache2/sites-available/000-default.conf
+      - /srv/wordpress/${SITE_FQDN}/.htpasswd:/etc/apache2/.htpasswd
+    depends_on:
+      - db
+    networks:
+      - web
+      - db
+
+
+  ### Database Service ###########################################
+  db:
+    image: mariadb:10.4.4-bionic
+    restart: always
+    labels:
+      traefik.enable: "false"
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: ${DB_PASS}
+    volumes:
+      - /srv/mariadb/${SITE_FQDN}:/var/lib/mysql
+    networks:
+      - db
+
+### Network Setup #############################################
+networks:
+  db:
+  web:
+    external: true
+    name: traefik_web
+

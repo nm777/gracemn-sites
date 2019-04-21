@@ -1,6 +1,12 @@
 #!/bin/bash
 
 ################################################################################
+# Set the time zone
+#echo "America/Chicago" | sudo tee -a /etc/timezone
+sudo timedatectl set-timezone America/Chicago
+sudo apt-get update && sudo apt-get install -y ntp
+
+################################################################################
 # Set up sudo not to require password for this user
 
 sudo addgroup freesudo

@@ -1,0 +1,33 @@
+version: '3.5'
+
+### Service Setup #############################################
+services:
+
+  ### Traefik Proxy ########################################
+  proxy:
+    image: traefik:1.7.10-alpine
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+      - 8080:8080
+    volumes:
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+      - type: bind
+        source: /srv/traefik/traefik.toml
+        target: /etc/traefik/traefik.toml
+      - type: bind
+        source: /srv/traefik/acme.json
+        target: /acme.json
+    labels:
+      traefik.enable: "false"
+    networks:
+      - web
+
+
+### Network Setup #############################################
+networks:
+  web:
+

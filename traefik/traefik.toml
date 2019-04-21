@@ -1,0 +1,223 @@
+################################################################
+# Global configuration
+################################################################
+
+# Enable debug mode
+#
+# Optional
+# Default: false
+#
+# debug = true
+
+# Log level
+#
+# Optional
+# Default: "ERROR"
+#
+# logLevel = "DEBUG"
+logLevel = "WARN"
+
+# Entrypoints to be used by frontends that do not specify any entrypoint.
+# Each frontend can specify its own entrypoints.
+#
+# Optional
+# Default: ["http"]
+#
+defaultEntryPoints = ["http", "https"]
+
+# Enable retry sending request if network error
+[retry]
+
+# Number of attempts
+#
+# Optional
+# Default: (number servers in backend) -1
+#
+attempts = 3
+
+################################################################
+# Entrypoints configuration
+################################################################
+
+# Entrypoints definition
+#
+# Optional
+# Default:
+[entryPoints]
+    [entryPoints.http]
+    address = ":80"
+
+		[entryPoints.http.redirect]
+		entryPoint = "https"
+
+	[entryPoints.https]
+	address = ":443"
+	compress = true
+
+		[entryPoints.https.proxyProtocol]
+		insecure = true
+		trustedIPs = ["10.10.10.1", "10.10.10.2"]
+
+    	[entryPoints.https.forwardedHeaders]
+		trustedIPs = ["10.10.10.1", "10.10.10.2"]
+
+		[entryPoints.https.tls]
+		minVersion = "VersionTLS12"
+        cipherSuites = [
+            "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384",
+            "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+            "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305",
+            "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305",
+            "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256",
+            "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+            "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256",
+            "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256"
+        ]
+
+#			[[entryPoints.https.tls.certificates]]
+#			certFile = "/etc/ssl/certs/gracemn.crt"
+#			keyFile = "/etc/ssl/private/gracemn.key"
+#			[[entryPoints.https.tls.certificates]]
+#			certFile = "/etc/ssl/certs/gracemn-members.crt"
+#			keyFile = "/etc/ssl/private/gracemn-members.key"
+
+	[entryPoints.api]
+#    address = ":8080"
+
+################################################################
+# Traefik logs configuration
+################################################################
+
+# Traefik logs
+# Enabled by default and log to stdout
+#
+# Optional
+#
+# [traefikLog]
+
+# Sets the filepath for the traefik log. If not specified, stdout will be used.
+# Intermediate directories are created if necessary.
+#
+# Optional
+# Default: os.Stdout
+#
+# filePath = "log/traefik.log"
+
+# Format is either "json" or "common".
+#
+# Optional
+# Default: "common"
+#
+# format = "common"
+
+################################################################
+# Access logs configuration
+################################################################
+
+# Enable access logs
+# By default it will write to stdout and produce logs in the textual
+# Common Log Format (CLF), extended with additional fields.
+#
+# Optional
+#
+# [accessLog]
+
+# Sets the file path for the access log. If not specified, stdout will be used.
+# Intermediate directories are created if necessary.
+#
+# Optional
+# Default: os.Stdout
+#
+# filePath = "/path/to/log/log.txt"
+
+# Format is either "json" or "common".
+#
+# Optional
+# Default: "common"
+#
+# format = "common"
+
+################################################################
+# API and dashboard configuration
+################################################################
+
+# Enable API and dashboard
+[api]
+
+  # Name of the related entry point
+  #
+  # Optional
+  # Default: "traefik"
+  #
+  # entryPoint = "traefik"
+
+  # Enabled Dashboard
+  #
+  # Optional
+  # Default: true
+  #
+  # dashboard = false
+
+################################################################
+# Ping configuration
+################################################################
+
+# Enable ping
+[ping]
+
+  # Name of the related entry point
+  #
+  # Optional
+  # Default: "traefik"
+  #
+  # entryPoint = "traefik"
+
+################################################################
+# Docker configuration backend
+################################################################
+
+# Enable Docker configuration backend
+[docker]
+
+# Docker server endpoint. Can be a tcp or a unix socket endpoint.
+#
+# Required
+# Default: "unix:///var/run/docker.sock"
+#
+# endpoint = "tcp://10.10.10.10:2375"
+
+# Default domain used.
+# Can be overridden by setting the "traefik.domain" label on a container.
+#
+# Optional
+# Default: ""
+#
+domain = "gracemn.com"
+
+watch = true
+
+# Expose containers by default in traefik
+#
+# Optional
+# Default: true
+#
+exposedByDefault = false
+
+[acme]
+email = "info@gracemn.com"
+storage = "acme.json"
+entryPoint = "https"
+onHostRule = true
+
+# CA server to use.
+# Uncomment the line to use Let's Encrypt's staging server,
+# leave commented to go to prod.
+#
+# Optional
+# Default: "https://acme-v02.api.letsencrypt.org/directory"
+#
+#caServer = "https://acme-staging-v02.api.letsencrypt.org/directory"
+
+    [acme.httpChallenge]
+    entryPoint = "http"
+
