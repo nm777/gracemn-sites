@@ -25,6 +25,7 @@ services:
       - /srv/wordpress/wait-for-it.sh:/wait-for-it.sh
       - /srv/wordpress/${SITE_FQDN}/000-default.conf:/etc/apache2/sites-available/000-default.conf
       - /srv/wordpress/${SITE_FQDN}/.htpasswd:/etc/apache2/.htpasswd
+      - /srv/wordpress/${SITE_FQDN}/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
     depends_on:
       - db
     networks:

@@ -12,6 +12,7 @@ FQDN=members.gracemn.com
 SITE_BASE=$BASE/$FQDN
 sudo mkdir $SITE_BASE 2>/dev/null
 sudo cp ./$NAME/000-default.conf $SITE_BASE
+sudo cp ./$NAME/uploads.ini $SITE_BASE
 
 read -p "Enter the MariaDB password for $FQDN: " DB_PASS
 
