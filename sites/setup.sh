@@ -20,7 +20,7 @@ echo "Enter credentials for restricted access to the member web site:"
 read -p "Username: " WEB_USER
 read -p "Password: " WEB_PASSWORD
 
-HTPASSWD=$(docker run -it --rm wordpress:5.1.1 htpasswd -nb ${WEB_USER} ${WEB_PASSWORD})
+HTPASSWD=$(docker run -it --rm wordpress:5.2.2 htpasswd -nb ${WEB_USER} ${WEB_PASSWORD})
 echo "$HTPASSWD" | sudo tee -a $SITE_BASE/.htpasswd
 sudo chmod 600 $SITE_BASE/.htpasswd
 sudo chown www-data:www-data $SITE_BASE/.htpasswd
