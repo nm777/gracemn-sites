@@ -5,13 +5,13 @@ services:
 
   ### Wordpress PHP Server ######################################
   site:
-    image: wordpress:5.2.2
+    image: wordpress:5.2.3
     command: ["/wait-for-it.sh", "db:3306", "--", "docker-entrypoint.sh", "apache2-foreground"]
     restart: always
     labels:
       traefik.enable: "true"
       traefik.port: 80
-      traefik.frontend.rule: "Host: ${SITE_FQDN}"
+      traefik.frontend.rule: "Host: ${SITE_FQDN},www.${SITE_FQDN}"
       traefik.docker.network: "traefik_web"
     environment:
       WORDPRESS_DB_HOST: db

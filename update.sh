@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
@@ -7,11 +7,11 @@ setDbPassword() {
     CONFIG_DIR=$2
     ENV_FILE="$CONFIG_DIR/.env"
 
-    if ! grep -q 'SITE_FQDN' $DIR/sites/gracemn/.env 2>/dev/null
+    if ! grep -q 'SITE_FQDN' $DIR/sites/gracemn/.env 2>/dev/null; then
         echo "SITE_FQDN=$FQDN" >> $ENV_FILE
     fi
 
-    if ! grep -q 'DB_PASS' $DIR/sites/gracemn/.env 2>/dev/null
+    if ! grep -q 'DB_PASS' $DIR/sites/gracemn/.env 2>/dev/null; then
         read -p "Enter the database password for $FQDN: " DB_PASS
         echo "DB_PASS=$DB_PASS" >> $ENV_FILE
     fi
