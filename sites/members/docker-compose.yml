@@ -5,7 +5,7 @@ services:
 
   ### Wordpress PHP Server ######################################
   site:
-    image: wordpress:5.2.3
+    image: wordpress:5.3.2
     command: ["/wait-for-it.sh", "db:3306", "--", "docker-entrypoint.sh", "apache2-foreground"]
     restart: always
     labels:
@@ -35,7 +35,7 @@ services:
 
   ### Database Service ###########################################
   db:
-    image: mariadb:10.4.7-bionic
+    image: mariadb:10.4.11-bionic
     restart: always
     labels:
       traefik.enable: "false"
