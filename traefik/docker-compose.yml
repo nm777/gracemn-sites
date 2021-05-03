@@ -5,7 +5,7 @@ services:
 
   ### Traefik Proxy ########################################
   proxy:
-    image: traefik:1.7.28-alpine
+    image: traefik:1.7.30-alpine
     restart: always
     ports:
       - 80:80
