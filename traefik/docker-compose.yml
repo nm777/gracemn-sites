@@ -25,17 +25,9 @@ services:
         target: /acme.json
 
     labels:
-      traefik.enable: "false"
+      traefik.enable: false
     networks:
       - web
-
-  whoami:
-    image: "traefik/whoami"
-    container_name: "simple-service"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.whoami.rule=Host(`whoami.localhost`)"
-      - "traefik.http.routers.whoami.entrypoints=web"
 
 ### Network Setup #############################################
 networks:

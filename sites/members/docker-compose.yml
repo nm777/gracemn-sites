@@ -8,10 +8,11 @@ services:
     command: ['/wait-for-it.sh', 'db:3306', '--', 'docker-entrypoint.sh', 'apache2-foreground']
     restart: always
     labels:
-      traefik.enable: 'true'
-      traefik.port: 80
-      traefik.frontend.rule: 'Host: ${SITE_FQDN}'
-      traefik.docker.network: 'traefik_web'
+      traefik.enable: true
+      traefik.docker.network: traefik_web
+      traefik.http.routers.${TRAEFIK_ROUTER}.rule: "Host(`${SITE_FQDN}`)"
+      traefik.http.services.${TRAEFIK_SERVICE}.loadbalancer.server.port: 80
+      traefik.http.services.${TRAEFIK_SERVICE}.loadbalancer.server.scheme: http
     environment:
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_NAME: wordpress
