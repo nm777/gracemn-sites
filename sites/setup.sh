@@ -28,7 +28,7 @@ sudo chown www-data:www-data $SITE_BASE/.htpasswd
 echo "SITE_FQDN=$FQDN" > ./$NAME/.env
 echo "DB_PASS=$DB_PASS" >> ./$NAME/.env
 cp ./$NAME/.env .
-docker-compose -p $NAME -f $NAME/docker-compose.yml up -d
+docker compose -p $NAME -f $NAME/docker-compose.yml up -d
 
 # gracemn.com
 NAME=gracemn
@@ -42,5 +42,5 @@ read -p "Enter the MariaDB password for $FQDN: " DB_PASS
 echo "SITE_FQDN=$FQDN" > ./$NAME/.env
 echo "DB_PASS=$DB_PASS" >> ./$NAME/.env
 cp ./$NAME/.env .
-docker-compose -p $NAME -f $NAME/docker-compose.yml up -d
+docker compose -p $NAME -f $NAME/docker-compose.yml up -d
 

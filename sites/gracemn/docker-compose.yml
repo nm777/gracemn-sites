@@ -10,9 +10,9 @@ services:
     labels:
       traefik.enable: true
       traefik.docker.network: traefik_web
-      traefik.http.routers.${TRAEFIK_ROUTER}.rule: "Host(`${SITE_FQDN}`,`www.${SITE_FQDN}`)"
-      traefik.http.services.${TRAEFIK_SERVICE}.loadbalancer.server.port: 80
-      traefik.http.services.${TRAEFIK_SERVICE}.loadbalancer.server.scheme: http
+      traefik.http.routers.gracemn.rule: "Host(`${SITE_FQDN}`,`www.${SITE_FQDN}`)"
+      traefik.http.services.gracemn.loadbalancer.server.port: 80
+      traefik.http.services.gracemn.loadbalancer.server.scheme: http
     environment:
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_NAME: wordpress

@@ -22,7 +22,7 @@ recompose() {
     HERE=`pwd`
 
     cd $DIR/$COMPOSE_DIR
-    docker-compose up -d
+    docker compose up -d
 
     cd $HERE
 }
