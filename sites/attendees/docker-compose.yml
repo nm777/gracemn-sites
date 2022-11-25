@@ -1,0 +1,40 @@
+# For more information: https://laravel.com/docs/sail
+version: '3'
+services:
+  site:
+    build:
+      context: ./vendor/laravel/sail/runtimes/8.1
+      dockerfile: Dockerfile
+      args:
+        WWWGROUP: '${WWWGROUP}'
+    image: sail-8.1/app
+    labels:
+      traefik.enable: true
+      traefik.docker.network: traefik_web
+      traefik.http.routers.attendees.rule: "Host(`${SITE_FQDN}`) && Path(`/${SITE_PATH}`)"
+      traefik.http.routers.attendees.middlewares: attendees-stripprefix@docker
+      traefik.http.routers.attendees.tls: true
+      traefik.http.services.attendees.loadbalancer.server.port: 80
+      traefik.http.services.attendees.loadbalancer.server.scheme: http
+      traefik.http.middlewares.attendees-stripprefix.stripprefix.prefixes: /${SITE_PATH}
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    ports:
+      - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
+    environment:
+      WWWUSER: '${WWWUSER}'
+      LARAVEL_SAIL: 1
+      XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
+      XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
+    volumes:
+      - '.:/var/www/html'
+    networks:
+      - web
+      - db
+networks:
+  db:
+    external: true
+    name: members_db
+  web:
+    external: true
+    name: traefik_web
