@@ -20,7 +20,6 @@ setDbPassword() {
 copyFiles() {
     BASE=/srv/wordpress
 
-    sudo cp sites/members/000-default.conf $BASE/members.gracemn.com/
     sudo cp sites/members/uploads.ini $BASE/members.gracemn.com/
 }
 
