@@ -62,3 +62,12 @@ MariaDB passwords are stored in the following places:
   an .env file and redeploy the entire compose stack with the updated password.
 - In the `/etc/cron.d/<site>` file. These are used to create rotating backups.
 
+## Maximum upload size
+
+Wordpress has a default maximum upload size of 2MB. That's quite low for most
+things. This has been increased, but if there is a need to increase it further
+that can be done by editing `/sites/members/uploads.ini`. Note that you need to
+update `memory_limit`, `upload_max_filesize`, and `post_max_size`.
+
+Once you've updated the file, simply execute `/update.sh` on the server to
+refresh the site with the updated settings.

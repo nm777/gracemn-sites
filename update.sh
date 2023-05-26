@@ -17,12 +17,19 @@ setDbPassword() {
     fi
 }
 
+copyFiles() {
+    BASE=/srv/wordpress
+
+    sudo cp sites/members/000-default.conf $BASE/members.gracemn.com/
+    sudo cp sites/members/uploads.ini $BASE/members.gracemn.com/
+}
+
 recompose() {
     COMPOSE_DIR=$1
     HERE=`pwd`
 
     cd $DIR/$COMPOSE_DIR
-    docker compose up -d
+    docker compose up -d --force-recreate
 
     cd $HERE
 }
@@ -31,8 +38,10 @@ recompose() {
 setDbPassword members.gracemn.com sites/members
 setDbPassword gracemn.com sites/gracemn
 
+# Update files that may have changed
+copyFiles
+
 # Update versions
 recompose sites/members
 recompose sites/gracemn
 recompose traefik
-
