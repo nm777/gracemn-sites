@@ -28,6 +28,7 @@ recompose() {
     HERE=`pwd`
 
     cd $DIR/$COMPOSE_DIR
+    docker compose pull
     docker compose up -d --force-recreate
 
     cd $HERE
