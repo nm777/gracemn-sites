@@ -2,7 +2,7 @@
 services:
   ### Wordpress PHP Server ######################################
   site:
-    image: wordpress:6.8.1
+    image: wordpress:6.8.2
     command: ['/wait-for-it.sh', 'db:3306', '--', 'docker-entrypoint.sh', 'apache2-foreground']
     restart: always
     labels:
