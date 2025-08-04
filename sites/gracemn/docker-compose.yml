@@ -8,7 +8,7 @@ services:
     labels:
       traefik.enable: true
       traefik.docker.network: traefik_web
-      traefik.http.routers.gracemn.rule: "Host(`${SITE_FQDN}`,`www.${SITE_FQDN}`)"
+      traefik.http.routers.gracemn.rule: "Host(`${SITE_FQDN}`) || Host(`www.${SITE_FQDN}`)"
       traefik.http.services.gracemn.loadbalancer.server.port: 80
       traefik.http.services.gracemn.loadbalancer.server.scheme: http
     environment:
