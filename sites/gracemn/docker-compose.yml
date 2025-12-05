@@ -30,7 +30,7 @@ services:
 
   ### Database Service ###########################################
   db:
-    image: mariadb:12.0.2
+    image: mariadb:12.1.2
     restart: always
     labels:
       traefik.enable: 'false'
