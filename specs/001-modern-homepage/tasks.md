@@ -98,11 +98,11 @@
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T034 [P] [US2] Create Feature test for Visit Us page in tests/Feature/VisitUs/VisitUsPageTest.php
-- [ ] T035 [P] [US2] Create Feature test for Sermons page in tests/Feature/Sermons/SermonsPageTest.php
-- [ ] T036 [P] [US2] Create Feature test for Music page in tests/Feature/Music/MusicPageTest.php
-- [ ] T037 [P] [US2] Create Feature test for Live Stream page in tests/Feature/LiveStream/LiveStreamPageTest.php
-- [ ] T038 [US2] Create Feature test that all placeholder pages return successful status code in respective test files
+- [x] T034 [P] [US2] Create Feature test for Visit Us page in tests/Feature/VisitUs/VisitUsPageTest.php
+- [x] T035 [P] [US2] Create Feature test for Sermons page in tests/Feature/Sermons/SermonsPageTest.php
+- [x] T036 [P] [US2] Create Feature test for Music page in tests/Feature/Music/MusicPageTest.php
+- [x] T037 [P] [US2] Create Feature test for Live Stream page in tests/Feature/LiveStream/LiveStreamPageTest.php
+- [x] T038 [US2] Create Feature test that all placeholder pages return successful status code in respective test files
 
 ### Implementation for User Story 2
 
