@@ -63,24 +63,24 @@
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T017 [P] [US1] Create Feature test for homepage route in tests/Feature/Home/HomePageTest.php
-- [ ] T018 [US1] Create Feature test that homepage returns successful status code in tests/Feature/Home/HomePageTest.php
-- [ ] T019 [US1] Create Feature test that navigation menu items are present in tests/Feature/Home/HomePageTest.php
-- [ ] T020 [P] [US1] Create Browser test for navigation functionality in tests/Browser/HomepageNavigationTest.php
-- [ ] T021 [P] [US1] Create Browser test that clicking navigation links navigates to correct pages in tests/Browser/HomepageNavigationTest.php
-- [ ] T022 [US1] Create Browser test for keyboard navigation accessibility in tests/Browser/HomepageNavigationTest.php
+- [x] T017 [P] [US1] Create Feature test for homepage route in tests/Feature/Home/HomePageTest.php
+- [x] T018 [US1] Create Feature test that homepage returns successful status code in tests/Feature/Home/HomePageTest.php
+- [x] T019 [US1] Create Feature test that navigation menu items are present in tests/Feature/Home/HomePageTest.php
+- [x] T020 [P] [US1] Create Browser test for navigation functionality in tests/Browser/HomepageNavigationTest.php
+- [x] T021 [P] [US1] Create Browser test that clicking navigation links navigates to correct pages in tests/Browser/HomepageNavigationTest.php
+- [x] T022 [US1] Create Browser test for keyboard navigation accessibility in tests/Browser/HomepageNavigationTest.php
 
 ### Implementation for User Story 1
 
-- [ ] T023 [US1] Create HomeController in app/Http/Controllers/HomeController.php with index method
-- [ ] T024 [US1] Implement HomeController to return Inertia::render('Home/Index') in app/Http/Controllers/HomeController.php
-- [ ] T025 [US1] Create Homepage component in resources/js/Pages/Home/Index.tsx with clean layout, readable typography (min 14px), and clear visual hierarchy
-- [ ] T026 [US1] Add homepage content with appropriate white space between sections in resources/js/Pages/Home/Index.tsx
-- [ ] T027 [US1] Apply shared Layout component to Homepage in resources/js/Pages/Home/Index.tsx
-- [ ] T028 [US1] Add route for homepage (/) in routes/web.php using HomeController@index
-- [ ] T029 [US1] Add ARIA attributes to navigation menu for accessibility in resources/js/Pages/Layout.tsx
-- [ ] T030 [US1] Add visible focus states for keyboard navigation in resources/js/Pages/Layout.tsx
-- [ ] T031 [US1] Run `vendor/bin/pint --dirty` to format PHP code
+- [x] T023 [US1] Create HomeController in app/Http/Controllers/HomeController.php with index method
+- [x] T024 [US1] Implement HomeController to return Inertia::render('Home/Index') in app/Http/Controllers/HomeController.php
+- [x] T025 [US1] Create Homepage component in resources/js/Pages/Home/Index.tsx with clean layout, readable typography (min 14px), and clear visual hierarchy
+- [x] T026 [US1] Add homepage content with appropriate white space between sections in resources/js/Pages/Home/Index.tsx
+- [x] T027 [US1] Apply shared Layout component to Homepage in resources/js/Pages/Home/Index.tsx
+- [x] T028 [US1] Add route for homepage (/) in routes/web.php using HomeController@index
+- [x] T029 [US1] Add ARIA attributes to navigation menu for accessibility in resources/js/Pages/Layout.tsx
+- [x] T030 [US1] Add visible focus states for keyboard navigation in resources/js/Pages/Layout.tsx
+- [x] T031 [US1] Run `vendor/bin/pint --dirty` to format PHP code
 - [ ] T032 [US1] Run `php artisan test --compact tests/Feature/Home/HomePageTest.php` to verify tests pass
 - [ ] T033 [US1] Run `php artisan test --compact tests/Browser/HomepageNavigationTest.php` to verify tests pass
 
