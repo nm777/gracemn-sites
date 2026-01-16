@@ -106,22 +106,22 @@
 
 ### Implementation for User Story 2
 
-- [ ] T039 [P] [US2] Create VisitUsController in app/Http/Controllers/VisitUsController.php with index method
-- [ ] T040 [P] [US2] Create SermonsController in app/Http/Controllers/SermonsController.php with index method
-- [ ] T041 [P] [US2] Create MusicController in app/Http/Controllers/MusicController.php with index method
-- [ ] T042 [P] [US2] Create LiveStreamController in app/Http/Controllers/LiveStreamController.php with index method
-- [ ] T043 [US2] Implement VisitUsController to return Inertia::render('VisitUs/Index') in app/Http/Controllers/VisitUsController.php
-- [ ] T044 [US2] Implement SermonsController to return Inertia::render('Sermons/Index') in app/Http/Controllers/SermonsController.php
-- [ ] T045 [US2] Implement MusicController to return Inertia::render('Music/Index') in app/Http/Controllers/MusicController.php
-- [ ] T046 [US2] Implement LiveStreamController to return Inertia::render('LiveStream/Index') in app/Http/Controllers/LiveStreamController.php
-- [ ] T047 [P] [US2] Create Visit Us placeholder component in resources/js/Pages/VisitUs/Index.tsx with placeholder content
-- [ ] T048 [P] [US2] Create Sermons placeholder component in resources/js/Pages/Sermons/Index.tsx with placeholder content
-- [ ] T049 [P] [US2] Create Music placeholder component in resources/js/Pages/Music/Index.tsx with placeholder content
-- [ ] T050 [US2] Create Live Stream placeholder component in resources/js/Pages/LiveStream/Index.tsx with placeholder content
-- [ ] T051 [US2] Apply shared Layout component to all placeholder pages in resources/js/Pages/\*/Index.tsx
-- [ ] T052 [US2] Add routes for all placeholder pages in routes/web.php using respective controllers
-- [ ] T053 [US2] Ensure visual consistency (same colors, fonts, navigation positioning) across all pages
-- [ ] T054 [US2] Run `vendor/bin/pint --dirty` to format PHP code
+- [x] T039 [P] [US2] Create VisitUsController in app/Http/Controllers/VisitUsController.php with index method
+- [x] T040 [P] [US2] Create SermonsController in app/Http/Controllers/SermonsController.php with index method
+- [x] T041 [P] [US2] Create MusicController in app/Http/Controllers/MusicController.php with index method
+- [x] T042 [P] [US2] Create LiveStreamController in app/Http/Controllers/LiveStreamController.php with index method
+- [x] T043 [US2] Implement VisitUsController to return Inertia::render('VisitUs/Index') in app/Http/Controllers/VisitUsController.php
+- [x] T044 [US2] Implement SermonsController to return Inertia::render('Sermons/Index') in app/Http/Controllers/SermonsController.php
+- [x] T045 [US2] Implement MusicController to return Inertia::render('Music/Index') in app/Http/Controllers/MusicController.php
+- [x] T046 [US2] Implement LiveStreamController to return Inertia::render('LiveStream/Index') in app/Http/Controllers/LiveStreamController.php
+- [x] T047 [P] [US2] Create Visit Us placeholder component in resources/js/Pages/VisitUs/Index.tsx with placeholder content
+- [x] T048 [P] [US2] Create Sermons placeholder component in resources/js/Pages/Sermons/Index.tsx with placeholder content
+- [x] T049 [P] [US2] Create Music placeholder component in resources/js/Pages/Music/Index.tsx with placeholder content
+- [x] T050 [US2] Create Live Stream placeholder component in resources/js/Pages/LiveStream/Index.tsx with placeholder content
+- [x] T051 [US2] Apply shared Layout component to all placeholder pages in resources/js/Pages/\*/Index.tsx
+- [x] T052 [US2] Add routes for all placeholder pages in routes/web.php using respective controllers
+- [x] T053 [US2] Ensure visual consistency (same colors, fonts, navigation positioning) across all pages
+- [x] T054 [US2] Run `vendor/bin/pint --dirty` to format PHP code
 - [ ] T055 [US2] Run `php artisan test --compact tests/Feature/VisitUs/VisitUsPageTest.php` to verify tests pass
 - [ ] T056 [US2] Run `php artisan test --compact tests/Feature/Sermons/SermonsPageTest.php` to verify tests pass
 - [ ] T057 [US2] Run `php artisan test --compact tests/Feature/Music/MusicPageTest.php` to verify tests pass
