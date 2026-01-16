@@ -26,7 +26,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                         </Link>
                     </div>
 
-                    <nav className="hidden md:block">
+                    <nav className="hidden md:block lg:flex">
                         <ul className="flex items-center gap-6">
                             {navigationItems.map((item) => (
                                 <li key={item.href}>
@@ -43,7 +43,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
                     <button
                         type="button"
-                        className="block p-2 text-neutral-600 hover:text-neutral-900 focus:ring-2 focus:ring-neutral-400 focus:outline-none md:hidden"
+                        className="block p-2 text-neutral-600 hover:text-neutral-900 focus:ring-2 focus:ring-neutral-400 focus:outline-none lg:hidden"
                         aria-label="Toggle navigation menu"
                         aria-expanded={mobileMenuOpen}
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -66,7 +66,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
                 {mobileMenuOpen && (
                     <nav
-                        className="border-b border-neutral-200 bg-white md:hidden"
+                        className="hidden md:block lg:block"
                         aria-hidden="false"
                     >
                         <ul className="mx-auto flex w-full max-w-7xl flex-col gap-2 px-4 py-4">
