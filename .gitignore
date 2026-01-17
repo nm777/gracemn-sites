@@ -20,3 +20,23 @@ tags
 # Persistent undo
 [._]*.un~
 
+# Mac
+.DS_Store
+# PHP / Laravel
+vendor/
+*.log
+*.cache
+storage/logs/*.log
+
+# Node.js / JavaScript / Vite
+node_modules/
+dist/
+build/
+public/build/
+public/hot/
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
