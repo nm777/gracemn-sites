@@ -65,10 +65,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 </div>
 
                 {mobileMenuOpen && (
-                    <nav
-                        className="hidden md:block lg:block"
-                        aria-hidden="false"
-                    >
+                    <nav className="lg:hidden" aria-hidden="false">
                         <ul className="mx-auto flex w-full max-w-7xl flex-col gap-2 px-4 py-4">
                             {navigationItems.map((item) => (
                                 <li key={item.href}>
