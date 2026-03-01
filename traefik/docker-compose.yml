@@ -3,7 +3,7 @@ services:
 
   ### Traefik Proxy ########################################
   proxy:
-    image: traefik:v3.5
+    image: traefik:v3.6
     container_name: traefik
     restart: always
     ports:
