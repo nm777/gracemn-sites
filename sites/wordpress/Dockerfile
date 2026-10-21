@@ -40,8 +40,8 @@ RUN set -eux; \
     find /usr/local /usr/lib/apache2/modules -type f -name '*.so' -exec ldd '{}' ';' \
         | awk '/=>/ { so = $(NF-1); if (index(so, "/usr/local/") == 1) { next }; gsub("^/(usr/)?", "", so); printf "*%s\n", so }' \
         | sort -u \
-        | xargs -r dpkg-query --search \
-        | cut -d: -f1 \
+        | xargs -r env LC_ALL=C dpkg-query --search \
+        | awk -F ': ' '!/^diversion / { print $1 }' \
         | sort -u \
         | xargs -r apt-mark manual; \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
