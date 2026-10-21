@@ -62,6 +62,34 @@ MariaDB passwords are stored in the following places:
   an .env file and redeploy the entire compose stack with the updated password.
 - In the `/etc/cron.d/<site>` file. These are used to create rotating backups.
 
+## PHP security image (October 2026)
+
+Both sites build `sites/wordpress/Dockerfile`, keeping WordPress 7.1.2 and rebuilding
+PHP 8.3.36 from checksum-verified source to fix CVE-2026-109618 and CVE-2026-109619.
+The build checks the PHP
+version, required extensions, and Apache configuration. Switch back to a patched
+official WordPress image once available, removing the custom build from both
+Compose files.
+
+After backing up the databases and WordPress files, run these commands on the
+server from the repository root. Build successfully before replacing either
+container; this does not upgrade or recreate MariaDB:
+
+```bash
+docker compose --project-directory sites/gracemn build --pull site
+docker compose --project-directory sites/gracemn run --rm --no-deps site php -v
+docker compose --project-directory sites/gracemn up -d --no-deps --force-recreate site
+docker compose --project-directory sites/members up -d --no-deps --force-recreate site
+docker compose --project-directory sites/gracemn exec site php -v
+docker compose --project-directory sites/members exec site php -v
+```
+
+Stop if the build or version check fails. Confirm PHP 8.3.36 in both containers,
+then check both sites, admin login, uploads, and image thumbnails. The image
+replacement does not change the existing content or database bind mounts.
+Do not use `update.sh` for this targeted rollout: it also updates MariaDB and
+Traefik. Do not use `down -v`, which removes Docker-managed volumes.
+
 ## Maximum upload size
 
 Wordpress has a default maximum upload size of 2MB. That's quite low for most

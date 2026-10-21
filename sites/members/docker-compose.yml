@@ -2,7 +2,8 @@
 services:
   ### Wordpress PHP Server ######################################
   site:
-    image: wordpress:7.1.2
+    image: gracemn-wordpress:7.1.2-php8.3.36
+    build: ../wordpress
     command: ['/wait-for-it.sh', 'db:3306', '--', 'docker-entrypoint.sh', 'apache2-foreground']
     restart: always
     labels:

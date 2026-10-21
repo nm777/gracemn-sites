@@ -28,8 +28,8 @@ recompose() {
     HERE=`pwd`
 
     cd $DIR/$COMPOSE_DIR
-    docker compose pull
-    docker compose up -d --force-recreate
+    docker compose pull --ignore-buildable
+    docker compose up -d --build --force-recreate
 
     cd $HERE
 }
