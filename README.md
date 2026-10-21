@@ -64,7 +64,7 @@ MariaDB passwords are stored in the following places:
 
 ## PHP security image (October 2026)
 
-Both sites build `sites/wordpress/Dockerfile`, keeping WordPress 7.1.2 and rebuilding
+Both sites build `sites/wordpress/Dockerfile`, using WordPress 7.1.3 and rebuilding
 PHP 8.3.36 from checksum-verified source to fix CVE-2026-109618 and CVE-2026-109619.
 The build checks the PHP
 version, required extensions, and Apache configuration. Switch back to a patched

@@ -1,4 +1,4 @@
-FROM wordpress:7.1.2-php8.3-apache
+FROM wordpress:7.1.3-php8.3-apache
 
 # Rebuild PHP in place: keep WordPress, Apache configuration, and extension ABI.
 # Source checksum: docker-library/php, 8.3/bookworm/apache/Dockerfile.
